@@ -1,0 +1,319 @@
+.shell {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Subtle scanline effect */
+.shell::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.015) 2px,
+    rgba(0, 0, 0, 0.015) 4px
+  );
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* ── Header ──────────────────────────────── */
+.header {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  height: 56px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-surface);
+  backdrop-filter: blur(8px);
+  position: relative;
+  z-index: 10;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.headerDuck {
+  font-size: 1.4rem;
+  line-height: 1;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+.headerTitle {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.headerTitle span {
+  color: var(--amber);
+}
+
+.headerBadge {
+  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  color: var(--green);
+  background: rgba(74, 222, 128, 0.08);
+  border: 1px solid rgba(74, 222, 128, 0.2);
+  padding: 0.15em 0.5em;
+  border-radius: 99px;
+  letter-spacing: 0.05em;
+}
+
+.headerBadge::before {
+  content: "● ";
+  animation: pulse-amber 2s ease infinite;
+}
+
+@keyframes pulse-amber {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* ── Main ────────────────────────────────── */
+.main {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Empty state ─────────────────────────── */
+.empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem 6rem;
+  text-align: center;
+  animation: fadeInUp 0.4s ease forwards;
+}
+
+.emptyDuck {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  animation: float 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 24px rgba(245, 166, 35, 0.3));
+}
+
+.emptyTitle {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.03em;
+}
+
+.emptySubtitle {
+  color: var(--text-secondary);
+  max-width: 420px;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+  font-size: 0.9rem;
+}
+
+.highlight {
+  color: var(--amber);
+}
+
+/* ── Messages ────────────────────────────── */
+.messages {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 1rem 0 2rem;
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* ── Error ───────────────────────────────── */
+.error {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(248, 113, 113, 0.08);
+  border: 1px solid rgba(248, 113, 113, 0.2);
+  color: var(--red);
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius);
+  margin: 0.5rem 1.5rem;
+  font-size: 0.85rem;
+  animation: fadeInUp 0.2s ease forwards;
+}
+
+.errorIcon {
+  flex-shrink: 0;
+}
+
+/* ── Footer / Input ──────────────────────── */
+.footer {
+  flex-shrink: 0;
+  padding: 0.75rem 1.5rem 1rem;
+  background: linear-gradient(to top, var(--bg) 60%, transparent);
+  position: relative;
+  z-index: 10;
+}
+
+.inputWrapper {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.inputBox {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+  background: var(--bg-input);
+  border: 1px solid var(--border-bright);
+  border-radius: var(--radius-lg);
+  padding: 0.65rem 0.65rem 0.65rem 1rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.inputBox:focus-within {
+  border-color: var(--amber-dim);
+  box-shadow: 0 0 0 3px var(--amber-subtle), var(--shadow-glow);
+}
+
+.prompt {
+  color: var(--amber);
+  font-size: 0.9rem;
+  flex-shrink: 0;
+  padding-bottom: 2px;
+  font-weight: 500;
+  user-select: none;
+}
+
+.textarea {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  resize: none;
+  min-height: 24px;
+  max-height: 160px;
+  overflow-y: auto;
+  caret-color: var(--amber);
+}
+
+.textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.textarea:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.sendButton {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--amber);
+  color: var(--bg);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-weight: 600;
+}
+
+.sendButton:hover:not(:disabled) {
+  background: #f0b840;
+  transform: translateY(-1px);
+}
+
+.sendButton:disabled {
+  background: var(--border-bright);
+  color: var(--text-muted);
+  cursor: not-allowed;
+  transform: none;
+}
+
+.loadingDots {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+}
+
+.loadingDots span {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: blink 1.2s ease infinite;
+}
+
+.loadingDots span:nth-child(2) { animation-delay: 0.2s; }
+.loadingDots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes blink {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+
+.hint {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  margin-top: 0.4rem;
+  letter-spacing: 0.02em;
+}
+
+.hint kbd {
+  font-family: var(--font-mono);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-bright);
+  padding: 0.05em 0.35em;
+  border-radius: 3px;
+  font-size: 0.75em;
+  color: var(--text-secondary);
+}
+
+/* ── Responsive ──────────────────────────── */
+@media (max-width: 640px) {
+  .emptyTitle {
+    font-size: 1.5rem;
+  }
+
+  .emptyDuck {
+    font-size: 3rem;
+  }
+
+  .footer {
+    padding: 0.5rem 0.75rem 0.75rem;
+  }
+
+  .messages {
+    padding: 0.5rem 0 1.5rem;
+  }
+}
