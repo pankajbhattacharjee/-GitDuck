@@ -2,7 +2,7 @@
 
 > A purpose-built chatbot for Git and GitHub. It's like a rubber duck debugger, except it actually talks back — and has opinions.
 
-**[Live Demo →](https://your-vercel-url.vercel.app)**
+**[Live Demo →](https://git-duck-p9qp.vercel.app/)**
 
 ---
 
@@ -54,6 +54,7 @@ npm run dev
 Open [http://localhost:3000](http://localhost:3000).
 
 ## Deploying to Vercel
+
 
 ```bash
 npx vercel
